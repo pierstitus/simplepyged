@@ -14,6 +14,13 @@ Documentation is in docs/. Examples of how to use this parser are at
 docs/examples. If you find documentation and/or examples confusing,
 let me know and I'll try to fix it.
 
+Unit Tests
+----------
+
+Unit tests can be executed from the project root directory using:
+
+    PYTHONPATH=simplepyged python -m unittest discover
+
 Licence
 --------
 
