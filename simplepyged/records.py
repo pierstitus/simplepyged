@@ -444,7 +444,8 @@ class Individual(Record):
         for my_family in self.parent_families():
             if my_family in candidate.parent_families():
                 mutual_families.append(my_family)
-                
+
+        return mutual_families
 
     def is_parent(self, candidate):
         """ Determine if candidate is parent of self """
