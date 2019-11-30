@@ -24,7 +24,7 @@
 
 # Global imports
 import string
-from events import Event
+from .events import Event
 
 class Line:
     """ Line of a GEDCOM file
@@ -68,7 +68,9 @@ class Line:
         self._parent_line = None
 
     def _init(self):
-        """ A method which GEDCOM parser runs after all lines are available. Subclasses should implement this method if they want to work with other Lines at parse time, but after all Lines are parsed. """
+        """ A method which GEDCOM parser runs after all lines are available.
+        Subclasses should implement this method if they want to work with other
+        Lines at parse time, but after all Lines are parsed."""
         pass
 
     def type(self):
@@ -132,14 +134,14 @@ class Line:
 
     def gedcom(self):
         """ Return GEDCOM code for this line and all of its sub-lines """
-        result = unicode(self)
+        result = str(self)
         for e in self.children_lines():
             result += '\n' + e.gedcom()
         return result
 
     def __str__(self):
         """ Format this line as its original string """
-        result = unicode(self.level())
+        result = str(self.level())
         if self.xref() != "":
             result += ' ' + self.xref()
         result += ' ' + self.tag()
@@ -259,7 +261,8 @@ class Individual(Record):
         return self.children_tag_records("FAMS")
 
     def get_parent_families(self):
-        """ Return a list of all of the family records in which this individual is a child. (adopted children can have multiple parent families)"""
+        """ Return a list of all of the family records in which this individual
+        is a child. (adopted children can have multiple parent families)"""
         return self.children_tag_records("FAMC")
 
     def name(self):
@@ -271,9 +274,9 @@ class Individual(Record):
                 # some older Gedcom files don't use child tags but instead
                 # place the name in the value of the NAME tag
                 if e.value() != "":
-                    name = string.split(e.value(),'/')
-                    first = string.strip(name[0])
-                    last = string.strip(name[1]) if len(name) > 1 else None
+                    name = e.value().split('/')
+                    first = name[0].strip()
+                    last = name[1].strip() if len(name) > 1 else None
                 else:
                     for c in e.children_lines():
                         if c.tag() == "GIVN":
@@ -298,7 +301,7 @@ class Individual(Record):
 
     def fathers_name(self):
         """ Return father's name (patronymic) """
-        return self.father().given_name()
+        return self.father()[0].given_name()
 
     def birth(self):
         """ Return one randomly chosen birth event
@@ -323,7 +326,7 @@ class Individual(Record):
             return -1
 
         try:
-            date = int(string.split(self.birth().date)[-1])
+            date = int(self.birth().date.split()[-1])
             return date
         except ValueError:
             return -1
@@ -355,7 +358,7 @@ class Individual(Record):
             return -1
 
         try:
-            date = int(string.split(self.death().date)[-1])
+            date = int(self.death().date.split()[-1])
             return date
         except ValueError:
             return -1

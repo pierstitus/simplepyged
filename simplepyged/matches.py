@@ -24,7 +24,7 @@
 #
 # To contact the author, see http://github.com/dijxtra/simplepyged
 
-from records import Individual
+from .records import Individual
 
 class MatchIndividual():
     """ Class for determining whether an Individual matches certain criteria """
