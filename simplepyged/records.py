@@ -226,28 +226,22 @@ class Individual(Record):
         return self._families
 
     def father(self):
-        """Returns a father as an Individual object. If person has multiple fathers, returns a list of Individual objects. """
+        """Returns a list of fathers as Individual objects."""
         fathers = []
 
         for family in self.parent_families():
             if family.husband() != None:
                 fathers.append(family.husband())
 
-        if len(fathers) == 1:
-            return fathers[0]
-
         return fathers
 
     def mother(self):
-        """Returns a mother as an Individual object. If person has multiple mothers, returns a list of Individual objects. """
+        """Returns a list of mothers as Individual objects."""
         mothers = []
 
         for family in self.parent_families():
             if family.wife() != None:
                 mothers.append(family.wife())
-
-        if len(mothers) == 1:
-            return mothers[0]
 
         return mothers
 
