@@ -15,7 +15,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -146,7 +146,7 @@ class Gedcom:
         t = self._tag(number,head) #retrieve line tag
 
         v = tail #retrieve value of tag if it exists
-        
+
         # create the line
         if l > self._current_level + 1:
             self._error(number,"Structure of GEDCOM file is corrupted")
@@ -235,10 +235,10 @@ class Gedcom:
 class GedcomParseError(Exception):
     """ Exception raised when a Gedcom parsing error occurs
     """
-    
+
     def __init__(self, value):
         self.value = value
-        
+
     def __str__(self):
         return self.value
 

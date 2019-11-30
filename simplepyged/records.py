@@ -13,7 +13,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -47,7 +47,7 @@ class Line:
     the family record in which the associated individual is a spouse.
     Likewise, an line with a tag of FAMC has a value that points to a
     family record in which the associated individual is a child.
-    
+
     See a Gedcom file for examples of tags and their values.
 
     """
@@ -85,7 +85,7 @@ class Line:
     def xref(self):
         """ Return the xref of this line """
         return self._xref
-    
+
     def tag(self):
         """ Return the tag of this line """
         return self._tag
@@ -105,7 +105,7 @@ class Line:
     def add_child(self,line):
         """ Add a child line to this line """
         self.children_lines().append(line)
-        
+
     def add_parent_line(self,line):
         """ Add a parent line to this line """
         self._parent_line = line
@@ -154,7 +154,7 @@ class Record(Line):
     Child class of Line
 
     """
-    
+
     def _parse_generic_event_list(self, tag):
         """ Creates new event for each line with given tag"""
         retval = []
@@ -261,7 +261,7 @@ class Individual(Record):
     def get_parent_families(self):
         """ Return a list of all of the family records in which this individual is a child. (adopted children can have multiple parent families)"""
         return self.children_tag_records("FAMC")
-    
+
     def name(self):
         """ Return a person's names as a tuple: (first,last) """
         first = ""
@@ -299,7 +299,7 @@ class Individual(Record):
     def fathers_name(self):
         """ Return father's name (patronymic) """
         return self.father().given_name()
-        
+
     def birth(self):
         """ Return one randomly chosen birth event
 
@@ -391,7 +391,7 @@ class Individual(Record):
 
         parent_pairs = map(lambda x: x.parents(), self.parent_families())
 
-        return [parent for parent_pair in parent_pairs for parent in parent_pair]   
+        return [parent for parent_pair in parent_pairs for parent in parent_pair]
 
     def common_ancestor(self, relative):
         """ Find a common ancestor with a relative """
@@ -401,7 +401,7 @@ class Individual(Record):
 
         me = {}
         him = {}
-        
+
         me['new'] = [self]
         me['old'] = []
         him['new'] = [relative]
@@ -447,21 +447,21 @@ class Individual(Record):
             return True
 
         return False
-        
+
     def is_sibling(self, candidate):
         """ Determine if candidate is sibling of self """
         if self.mutual_families(candidate):
             return True
 
         return False
-        
+
     def is_relative(self, candidate):
         """ Determine if candidate is relative of self """
         if self.common_ancestor(candidate) is not None:
             return True
 
         return False
-        
+
     def distance_to_ancestor(self, ancestor):
         """Distance to an ancestor given in number of generations
 
@@ -500,7 +500,7 @@ class Individual(Record):
 
         if ancestor.children() == []:
             return None
-        
+
         if descendant in ancestor.children():
             return [ancestor]
 
@@ -512,7 +512,7 @@ class Individual(Record):
             if path is not None:
                 path.insert(0, ancestor)
                 return path
-    
+
         return None
 
     def path_to_relative(self, relative):
@@ -529,7 +529,7 @@ class Individual(Record):
 
         if relative in self.parents():
             return [[self, 'start'], [relative, 'parent']]
-        
+
         common_ancestor = self.common_ancestor(relative)
 
         if common_ancestor is None: # is not relative
@@ -565,13 +565,13 @@ class Individual(Record):
         except IndexError: # sibling check didn't work out, we'll just
                            # put common ancestor in there
             full_path.append([common_ancestor, 'child'])
-        
+
         for step in his_path[1:]: #his path without common ancestor
             full_path.append([step, 'child'])
         full_path[-1][1] = '' # last person doesn't have next person to relate to
-            
+
         return full_path
-        
+
 
 class Family(Record):
     """ Gedcom record representing a family
@@ -587,7 +587,7 @@ class Family(Record):
         """ Implementing Line._init()
 
         Initialise husband, wife and children attributes. """
-        
+
         try:
             self._husband = self.children_tag_records("HUSB")[0]
         except IndexError:

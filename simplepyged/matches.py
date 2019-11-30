@@ -15,7 +15,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -81,7 +81,7 @@ class MatchIndividual():
         * deathrange=[year1-year2]
         * marriage=[year]
         * marriagerange=[year1-year2]
-        
+
         """
 
         # error checking on the criteria
@@ -145,7 +145,7 @@ class MatchIndividual():
                         match = False
                 except ValueError:
                     match = False
-                    
+
         return match
 
     def marriage_year_match(self,year):
@@ -178,7 +178,7 @@ class MatchList:
     gedcom = Gedcom(somefile)
     list = gedcom.individual_list()
     individual = gedcom.get_individual(xref)
-    
+
     if MatchIndividual(individual).given_match(some_name):
         individual in MatchList(list).given_match(some_name) # this line returns True
     """
@@ -195,7 +195,7 @@ class MatchList:
         def product(*args):
             return self.__abstract(method, *args)
         return product
-        
+
     def __abstract(self, method, *args):
         retval = []
         for record in self.records:
