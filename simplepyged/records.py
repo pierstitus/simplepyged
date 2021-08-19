@@ -228,6 +228,13 @@ class Individual(Record):
         return self._families
 
     def father(self):
+        """Returns first father as an Individual object."""
+        try:
+            return self.fathers()[0]
+        except IndexError:
+            return None
+
+    def fathers(self):
         """Returns a list of fathers as Individual objects."""
         fathers = []
 
@@ -238,6 +245,13 @@ class Individual(Record):
         return fathers
 
     def mother(self):
+        """Returns first mother as an Individual object."""
+        try:
+            return self.mothers()[0]
+        except IndexError:
+            return None
+
+    def mothers(self):
         """Returns a list of mothers as Individual objects."""
         mothers = []
 
@@ -301,7 +315,7 @@ class Individual(Record):
 
     def fathers_name(self):
         """ Return father's name (patronymic) """
-        return self.father()[0].given_name()
+        return self.father().given_name()
 
     def birth(self):
         """ Return one randomly chosen birth event
